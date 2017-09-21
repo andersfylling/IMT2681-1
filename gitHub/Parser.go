@@ -1,4 +1,4 @@
-package GitHub
+package gitHub
 
 import (
 	"bytes"

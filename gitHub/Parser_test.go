@@ -1,8 +1,8 @@
-package GitHub
+package gitHub
 
 import "testing"
 
-func TestParser(t *testing.T) {
+func TestParseGitHubTitle(t *testing.T) {
 	cases := []struct {
 		title, expected string
 	}{
@@ -16,9 +16,9 @@ func TestParser(t *testing.T) {
 	for _, c := range cases {
 		title := c.title
 
-		if c.expected != Parser(title) {
-			t.Errorf("Parser(%s) -> '%s', wants '%s'", title, Parser(title), c.expected)
+		if c.expected != ParseGitHubTitle(title) {
+			t.Errorf("Parser(%s) -> '%s', wants '%s'", title, ParseGitHubTitle(title), c.expected)
 		}
 	}
 
-} // TestParser
+} // TestParseGitHubTitle

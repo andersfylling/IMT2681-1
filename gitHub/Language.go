@@ -1,4 +1,4 @@
-package GitHub
+package gitHub
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// Repo The assignment response struct.
+// Languages The assignment response struct.
 // This will hold the payload of our response to a given
 // Github repository url
 type Languages struct {
@@ -17,7 +17,7 @@ type Languages struct {
 	Language      []string
 }
 
-// NewRepo Create a new payload instance
+// NewLanguages Create a new payload instance
 // @param url should be the base url for the api repository
 func NewLanguages(url string) *Languages {
 	return &Languages{
@@ -32,11 +32,11 @@ func NewLanguages(url string) *Languages {
 // or extract fresh results
 //
 // @param cache true for cache look up
-func (langStruct *Languages) GetLanguages(cache bool) []string {
+func (langStruct *Languages) GetLanguages(cache bool) {
 
 	// If languages has already been set
 	if cache && len(langStruct.Language) > 0 {
-		return langStruct.Language
+		return
 	}
 
 	// otherwise we extract the languages
@@ -70,8 +70,6 @@ func (langStruct *Languages) GetLanguages(cache bool) []string {
 	}
 
 	langStruct.Language = l
-
-	return l
 }
 
 // GetJSON Returns a JSON string of the object

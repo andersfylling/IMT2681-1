@@ -1,4 +1,4 @@
-package GitHub
+package gitHub
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// Repo The assignment response struct.
+// Commitor The assignment response struct.
 // This will hold the payload of our response to a given
 // Github repository url
 type Commitor struct {
@@ -19,7 +19,7 @@ type Commitor struct {
 	Commits       int
 }
 
-// NewRepo Create a new payload instance
+// NewCommitor Create a new payload instance
 func NewCommitor(url string) *Commitor {
 	return &Commitor{
 		0,
@@ -30,12 +30,16 @@ func NewCommitor(url string) *Commitor {
 	}
 }
 
-// GetLanguages returnes the languages
+// GetCommitor returnes the languages
 // It's important to note that you can retrieve the cached results
 // or extract fresh results
 //
 // @param cache true for cache look up
 func (comStruct *Commitor) GetCommitor(cache bool) {
+
+	if cache && len(comStruct.Username) > 0 {
+		return
+	}
 
 	// otherwise we extract the languages
 	client := http.Client{

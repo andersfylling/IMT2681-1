@@ -1,4 +1,4 @@
-package GitHub
+package gitHub
 
 import (
 	"encoding/json"
@@ -18,7 +18,7 @@ type Repo struct {
 }
 
 // NewRepo Create a new payload instance
-func NewRepo(username, repository string) *Repo {
+func NewGitHubRepo(username, repository string) *Repo {
 	u := ParseGitHubTitle(username)
 	r := ParseGitHubTitle(repository)
 	return &Repo{
@@ -36,7 +36,7 @@ func NewRepo(username, repository string) *Repo {
 // or extract fresh results
 //
 // @param cache true for cache look up
-func (repoStruct *Repo) SetRepoDetails(cache bool) {
+func (repoStruct *Repo) GetRepoDetails(cache bool) {
 
 	commiter := NewCommitor(repoStruct.baseURL)
 	commiter.GetCommitor(cache)
@@ -44,7 +44,8 @@ func (repoStruct *Repo) SetRepoDetails(cache bool) {
 	repoStruct.Commits = commiter.Commits
 
 	languages := NewLanguages(repoStruct.baseURL)
-	repoStruct.Language = languages.GetLanguages(cache)
+	languages.GetLanguages(cache)
+	repoStruct.Language = languages.Language
 
 }
 

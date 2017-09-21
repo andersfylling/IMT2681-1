@@ -14,8 +14,8 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func HandleGitHubRequest(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	gh := NewRepo(ps.ByName("username"), ps.ByName("repository"))
-	gh.SetRepoDetails(false)
+	gh := NewGitHubRepo(ps.ByName("username"), ps.ByName("repository"))
+	gh.GetRepoDetails(false)
 
 	fmt.Fprintf(w, gh.getJSON())
 }
