@@ -1,4 +1,4 @@
-package gitHub
+package githubreader
 
 import (
 	"encoding/json"

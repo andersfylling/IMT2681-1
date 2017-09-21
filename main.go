@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/sciencefyll/IMT2681-1/githubreader"
 )
 
 // Index smth
