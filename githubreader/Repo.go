@@ -22,7 +22,7 @@ func NewRepo(username, repository string) *Repo {
 	u := ParseGitHubTitle(username)
 	r := ParseGitHubTitle(repository)
 	return &Repo{
-		"https://api.github.com/repos/",
+		"https://api.github.com/repos/" + u + "/" + r,
 		"github.com/" + u + "/" + r,
 		u,
 		"",
@@ -50,7 +50,17 @@ func (repoStruct *Repo) GetRepoDetails(cache bool) {
 }
 
 // GetJSON Returns a JSON string of the object
-func (ghr *Repo) GetJSON() string {
+func (ghr *Repo) GetJSON() []byte {
+	obj, err := json.Marshal(ghr)
+
+	if err != nil {
+		log.Fatal(err)
+		return []byte{}
+	}
+
+	return obj
+}
+func (ghr *Repo) GetJSONString() string {
 	obj, err := json.Marshal(ghr)
 
 	if err != nil {

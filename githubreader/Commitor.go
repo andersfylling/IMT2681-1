@@ -43,7 +43,7 @@ func (comStruct *Commitor) GetCommitor(cache bool) {
 
 	// otherwise we extract the languages
 	client := http.Client{
-		Timeout: time.Second * 2, // Maximum of 2 secs
+		Timeout: time.Second * 5, // Maximum of 2 secs
 	}
 
 	req, err := http.NewRequest(http.MethodGet, comStruct.BaseURL+comStruct.baseURLSuffix, nil)
@@ -62,8 +62,14 @@ func (comStruct *Commitor) GetCommitor(cache bool) {
 	}
 
 	// extract the languages from the json bytes
-	var data map[string]interface{}
+	var data []struct {
+		Login   string `json:"login"`
+		Commits int    `json:"contributions"`
+	}
 	_ = json.Unmarshal(body, &data)
+
+	comStruct.Username = data[comStruct.position].Login
+	comStruct.Commits = data[comStruct.position].Commits
 
 }
 

@@ -18,7 +18,8 @@ func HandleGitHubRequest(w http.ResponseWriter, r *http.Request, ps httprouter.P
 	gh := githubreader.NewRepo(ps.ByName("username"), ps.ByName("repository"))
 	gh.GetRepoDetails(false)
 
-	fmt.Fprintf(w, gh.GetJSON())
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintf(w, gh.GetJSONString())
 }
 
 // Contains all the routes for the project

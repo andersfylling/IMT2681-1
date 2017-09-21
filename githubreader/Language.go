@@ -41,7 +41,7 @@ func (langStruct *Languages) GetLanguages(cache bool) {
 
 	// otherwise we extract the languages
 	client := http.Client{
-		Timeout: time.Second * 2, // Maximum of 2 secs
+		Timeout: time.Second * 5, // Maximum of 2 secs
 	}
 
 	req, err := http.NewRequest(http.MethodGet, langStruct.BaseURL+langStruct.baseURLSuffix, nil)
