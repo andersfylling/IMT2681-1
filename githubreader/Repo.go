@@ -18,7 +18,7 @@ type Repo struct {
 }
 
 // NewRepo Create a new payload instance
-func NewGitHubRepo(username, repository string) *Repo {
+func NewRepo(username, repository string) *Repo {
 	u := ParseGitHubTitle(username)
 	r := ParseGitHubTitle(repository)
 	return &Repo{

@@ -15,10 +15,10 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func HandleGitHubRequest(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	gh := NewGitHubRepo(ps.ByName("username"), ps.ByName("repository"))
+	gh := githubreader.NewRepo(ps.ByName("username"), ps.ByName("repository"))
 	gh.GetRepoDetails(false)
 
-	fmt.Fprintf(w, gh.getJSON())
+	fmt.Fprintf(w, gh.GetJSON())
 }
 
 // Contains all the routes for the project
