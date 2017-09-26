@@ -2,10 +2,6 @@ package githubreader
 
 import (
 	"encoding/json"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"time"
 )
 
 // Languages The assignment response struct.
@@ -39,29 +35,11 @@ func (langStruct *Languages) GetLanguages(cache bool) {
 		return
 	}
 
-	// otherwise we extract the languages
-	client := http.Client{
-		Timeout: time.Second * 5, // Maximum of 2 secs
-	}
-
-	req, err := http.NewRequest(http.MethodGet, langStruct.BaseURL+langStruct.baseURLSuffix, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	res, getErr := client.Do(req)
-	if getErr != nil {
-		log.Fatal(getErr)
-	}
-
-	body, readErr := ioutil.ReadAll(res.Body)
-	if readErr != nil {
-		log.Fatal(readErr)
-	}
+	url := langStruct.BaseURL + langStruct.baseURLSuffix
 
 	// extract the languages from the json bytes
 	var data map[string]interface{}
-	_ = json.Unmarshal(body, &data)
+	_ = json.Unmarshal(getJSONData(url), &data)
 
 	// add them to a string array
 	l := []string{}
@@ -71,15 +49,3 @@ func (langStruct *Languages) GetLanguages(cache bool) {
 
 	langStruct.Language = l
 }
-
-// GetJSON Returns a JSON string of the object
-// func (ghr *Repo) GetJSON() string {
-// 	obj, err := json.Marshal(ghr)
-//
-// 	if err != nil {
-// 		log.Fatal(err)
-// 		return "{}"
-// 	}
-//
-// 	return string(obj)
-// }

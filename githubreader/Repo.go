@@ -31,7 +31,7 @@ func NewRepo(username, repository string) *Repo {
 	}
 }
 
-// GetLanguages returnes the languages
+// GetRepoDetails returnes the languages
 // It's important to note that you can retrieve the cached results
 // or extract fresh results
 //
@@ -49,9 +49,9 @@ func (repoStruct *Repo) GetRepoDetails(cache bool) {
 
 }
 
-// GetJSON Returns a JSON string of the object
-func (ghr *Repo) GetJSON() []byte {
-	obj, err := json.Marshal(ghr)
+// GetJSON Returns a JSON string of the object as byte array
+func (repoStruct *Repo) GetJSON() []byte {
+	obj, err := json.Marshal(repoStruct)
 
 	if err != nil {
 		log.Fatal(err)
@@ -60,8 +60,10 @@ func (ghr *Repo) GetJSON() []byte {
 
 	return obj
 }
-func (ghr *Repo) GetJSONString() string {
-	obj, err := json.Marshal(ghr)
+
+// GetJSONString returns the json data as a string
+func (repoStruct *Repo) GetJSONString() string {
+	obj, err := json.Marshal(repoStruct)
 
 	if err != nil {
 		log.Fatal(err)

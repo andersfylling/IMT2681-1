@@ -2,10 +2,6 @@ package githubreader
 
 import (
 	"encoding/json"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"time"
 )
 
 // Commitor The assignment response struct.
@@ -41,46 +37,15 @@ func (comStruct *Commitor) GetCommitor(cache bool) {
 		return
 	}
 
-	// otherwise we extract the languages
-	client := http.Client{
-		Timeout: time.Second * 5, // Maximum of 2 secs
-	}
-
-	req, err := http.NewRequest(http.MethodGet, comStruct.BaseURL+comStruct.baseURLSuffix, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	res, getErr := client.Do(req)
-	if getErr != nil {
-		log.Fatal(getErr)
-	}
-
-	body, readErr := ioutil.ReadAll(res.Body)
-	if readErr != nil {
-		log.Fatal(readErr)
-	}
+	url := comStruct.BaseURL + comStruct.baseURLSuffix
 
 	// extract the languages from the json bytes
 	var data []struct {
 		Login   string `json:"login"`
 		Commits int    `json:"contributions"`
 	}
-	_ = json.Unmarshal(body, &data)
+	_ = json.Unmarshal(getJSONData(url), &data)
 
 	comStruct.Username = data[comStruct.position].Login
 	comStruct.Commits = data[comStruct.position].Commits
-
 }
-
-// GetJSON Returns a JSON string of the object
-// func (c *Commitor) GetJSON() string {
-// 	obj, err := json.Marshal(c)
-//
-// 	if err != nil {
-// 		log.Fatal(err)
-// 		return "{}"
-// 	}
-//
-// 	return string(obj)
-// }

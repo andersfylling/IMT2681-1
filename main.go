@@ -9,11 +9,8 @@ import (
 	"github.com/sciencefyll/IMT2681-1/githubreader"
 )
 
-// Index smth
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprint(w, "Welcome!\n")
-}
-
+// HandleGitHubRequest Takes in a requested URL and spits out
+// desired data about it as a json
 func HandleGitHubRequest(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	gh := githubreader.NewRepo(ps.ByName("username"), ps.ByName("repository"))
 	gh.GetRepoDetails(false)
@@ -27,7 +24,6 @@ func main() {
 	router := httprouter.New()
 
 	// routes
-	router.GET("/", Index)
 	router.GET("/projectinfo/v1/github.com/:username/:repository", HandleGitHubRequest)
 
 	// start server

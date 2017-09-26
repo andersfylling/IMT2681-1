@@ -44,7 +44,7 @@ func charCode(c rune) int {
 	return int(c)
 }
 
-// ParseGithubTitle Parses a title by the Github rules.
+// ParseGitHubTitle Parses a title by the Github rules.
 // I don't actually know the rules, I just noticed some runes/chars
 // that they accept.
 func ParseGitHubTitle(title string) string {
